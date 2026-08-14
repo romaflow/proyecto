@@ -45,6 +45,23 @@ define('JS', ASSETS . 'js/');
 define('PLUGINS', ASSETS . 'plugins/');
 define('UPLOADS', ASSETS . 'uploads/');
 
+// credenciales remoto y local de la base de datos
+// set para conexion local o de desarrollo
+
+define('LDB_ENGINE', 'mysql');
+define('LDB_HOST', 'localhost');
+define('LDB_NAME', 'romaflow');
+define('LDB_USER', 'root');
+define('LDB_PASS', '');
+define('LDB_CHARSET', 'utf8');
+
+// set para conexion en prudccion o servidor real
+define('DB_ENGINE', 'mysql');
+define('DB_HOST', 'localhost');
+define('DB_NAME', '___REMOTE_DB___');
+define('DB_USER', '___REMOTE_DB___');
+define('DB_PASS', '___REMOTE_DB___');
+define('DB_CHARSET', '___REMOTE_DB___');
 
 
 
