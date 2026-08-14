@@ -1,10 +1,10 @@
 <?php
 
 // saber si estamos trabajando en local o en un servidor
-define('IS_LOCAL', in_array($_SERVER['REMOTE_ADDR'], ['127.0.0.1', '::1']) ? true : false);
+define('IS_LOCAL', in_array($_SERVER['REMOTE_ADDR'], ['127.0.0.1', '::1']));
 
 // definir el timezone del sistema
-date_default_timezone_set('America/Bolivia/La_Paz');
+date_default_timezone_set('America/La_Paz');
 
 // lenguaje
 define('LANGUAGE', 'es');
@@ -47,10 +47,9 @@ define('UPLOADS', ASSETS . 'uploads/');
 
 // credenciales remoto y local de la base de datos
 // set para conexion local o de desarrollo
-
 define('LDB_ENGINE', 'mysql');
 define('LDB_HOST', 'localhost');
-define('LDB_NAME', 'romaflow');
+define('LDB_NAME', 'db_proyecto');
 define('LDB_USER', 'root');
 define('LDB_PASS', '');
 define('LDB_CHARSET', 'utf8');
