@@ -1,7 +1,10 @@
 <?php require_once('app/config/me_config.php'); ?>
 <?php require_once('app/functions/me_core_functions.php'); ?>
 
-<?php //echo en_core(); ?>
+<?php
+//echo URL; // prueba
+//echo en_core(); // prueba
+?>
 
 
 <!DOCTYPE html>
