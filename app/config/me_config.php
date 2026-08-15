@@ -10,14 +10,14 @@ date_default_timezone_set('America/La_Paz');
 define('LANGUAGE', 'es');
 
 // ruta base del proyecto CAMBIAR ESTO SI SE SUBE A UN SERVIDOR
-define('BASE_PATH', IS_LOCAL ? '/romaflow/proyecto/' : '____EL BASEPATH DEL SERVIDOR___');
+define('BASE_PATH', IS_LOCAL ? '/romaflow/proyecto/' : '____EL_BASEPATH_DEL_SERVIDOR___');
 
 // Sal del sistema, concadena una cadena aleatoria para mejorar la seguridad de las cookies
 define('AUTH_SALT', 'romaflow');
 
 // definir el puerto y la url del sitio con rutas absolutas.
 define('PORT', '8848');
-define('URL', IS_LOCAL ? 'http://127.0.0.1:' . 'PORT' . 'BASE_PATH' : '___URL DEL SERVIDOR___');
+define('URL', IS_LOCAL ? 'http://127.0.0.1:' . PORT . BASE_PATH : '___URL_DEL_SERVIDOR___');
 
 // rutas de nuestro sistema de directorios y archivos
 define('DS', DIRECTORY_SEPARATOR);
