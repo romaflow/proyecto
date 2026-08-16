@@ -6,5 +6,6 @@
  */
 require_once('app/classes/Me.php');
 $me = new Me();
-echo en_core();
+
+
 ?>

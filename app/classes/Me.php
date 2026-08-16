@@ -10,6 +10,9 @@ class Me
     public function __construct()
     {
         $this->init();
+        // Parametro _GET
+        $this->filter_url();
+        print_r($this->uri);
     }
 
     /** 
@@ -101,5 +104,27 @@ class Me
 
 
 
+    /**
+     * Filtrar y descomponer los elementos de nuestra URL y URI
+     * http://localhost:8848/romaflow/proyecto/controller/123
+     * URL: controller/123
+     * URI: http://localhost:8848/romaflow/proyecto/
+     * @return void
+     */
+    private function filter_url()
+    {
+        // saber si esta setteado nuestra uri
+        if (isset($_GET['uri'])) {
+            $this->uri = $_GET['uri'];
+            // limpieza el ultimo / de la URi
+            $this->uri = rtrim($this->uri, '/');
+            // filtrar nuestra URL
+            $this->uri = filter_var($this->uri, FILTER_SANITIZE_URL);
+            // separar la uri en un array, toto en minusculas
+            $this->uri = explode('/', strtolower($this->uri));
+            return $this->uri;
+        }
+        return;
+    }
 }
 ?>
