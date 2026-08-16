@@ -3,8 +3,8 @@
 CREA TU PROPIO FRAMEWORK PROFESIONAL MVC CON PHP POO MYSQL
 
 # POO
-Es un paradigma de programación, incluye la herencia, abstracción, polimorfismo y encapsulación. A principios de 1990.
-* Clase, definiciones de propiedades.
+Es un paradigma de programación que usa objetos y sus interacciones, basado en la herencia, abstracción, polimorfismo y encapsulación. A principios de 1990.
+* Clase, definiciones de propiedades y comportamiento.
 * Objeto, instancia de una clase.
 * Método, función asociada, conjunto de operaciones que se realizan a los datos que son asignados a un objeto.
 * Atributo, propiedad de un objeto.
