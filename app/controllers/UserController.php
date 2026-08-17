@@ -1,5 +1,5 @@
 <?php
-class HomeController
+class UserController
 {
     public function __construct()
     {

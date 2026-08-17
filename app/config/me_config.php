@@ -62,6 +62,10 @@ define('DB_USER', '___REMOTE_DB___');
 define('DB_PASS', '___REMOTE_DB___');
 define('DB_CHARSET', '___REMOTE_DB___');
 
+// el controlador por defecto, el metodo por defecto, el controlador de errores pordefecto.
+define('DEFAULT_CONTROLLER', 'home');
+define('DEFAULT_ERROR_CONTROLLER', 'error');
+define('DEFAULT_METHOD', 'index');
 
 
 ?>

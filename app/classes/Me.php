@@ -3,8 +3,9 @@ class Me
 {
     // Propiedades del framework
     private $framework = 'Me Framework';
-    private $version = '';
+    private $version = '1.0.0';
     private $uri = [];
+    private $current_controller = '';
 
     // funcion principal  contructor
     public function __construct()
@@ -12,7 +13,7 @@ class Me
         $this->init();
         // Parametro _GET
         $this->filter_url();
-        print_r($this->uri);
+        //print_r($this->uri);
     }
 
     /** 
@@ -26,6 +27,7 @@ class Me
         $this->init_load_config();
         $this->init_load_functions();
         $this->init_auto_load();
+        $this->dispatch();
     }
 
     /**
@@ -99,6 +101,11 @@ class Me
         require_once(CLASSES . 'Db.php');
         require_once(CLASSES . 'Model.php');
         require_once(CLASSES . 'Controller.php');
+
+        // controlador por default
+        require_once(CONTROLLERS . DEFAULT_CONTROLLER . 'Controller.php');
+        require_once(CONTROLLERS . DEFAULT_ERROR_CONTROLLER . 'Controller.php');
+        require_once(CONTROLLERS . 'UserController.php');
         return;
     }
 
@@ -125,6 +132,36 @@ class Me
             return $this->uri;
         }
         return;
+    }
+
+    /**
+     * Ejecucion del me framework
+     * metodo para ejecutar y cargar de forma automatica el controlador solicitado por el usuario
+     * su metodo y pasar parametros a error
+     * @return void
+     */
+    private function dispatch()
+    {
+        // filtrar la url y separar la uri
+        $this->filter_url();
+
+        // nesesitamos saber si se esta pasando el nombre de un controlador en la URI
+        // $this->uri[0] es el controlador por defecto
+        // print_r($this->uri);
+        if (isset($this->uri[0])) {
+            // definimos el nombre de controlador
+            $this->current_controller = ucfirst($this->uri[0]) . 'Controller'; // UserController
+            unset($this->uri[0]); // destroy array [0]          
+        } else {
+            $this->current_controller = ucfirst(DEFAULT_CONTROLLER) . 'Controller';// HomeController
+        }
+
+        // verificamos que el controlador exista y la clase exista   
+        $controllerClass = $this->current_controller;
+        if (!class_exists($controllerClass)) {
+            $this->current_controller = ucfirst(DEFAULT_ERROR_CONTROLLER) . 'Controller';// ErrorController
+        }
+        // echo $this->current_controller;
     }
 }
 ?>
