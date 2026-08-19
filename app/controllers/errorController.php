@@ -2,7 +2,7 @@
 class ErrorController
 {
     public function __construct(){
-        echo 'Ejecutando '. __CLASS__;
+        echo '<h1>PÁGINA NO ENCONTRADA</h1>';
     }
 }
 
