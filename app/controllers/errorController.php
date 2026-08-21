@@ -1,8 +1,13 @@
 <?php
 class ErrorController
 {
-    public function __construct(){
-        echo '<h1>PÁGINA NO ENCONTRADA</h1>';
+    public function __construct()
+    {        
+    }
+
+    public function index()
+    {
+        echo ('<h1>PÁGINA NO ENCONTRADO</h1>');
     }
 }
 

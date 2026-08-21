@@ -5,8 +5,6 @@ class Me
     private $framework = 'Me Framework';
     private $version = '1.0.0';
     private $uri = [];
-    private $current_controller = '';
-    private $current_method = '';
 
     // funcion principal  contructor
     public function __construct()
@@ -36,9 +34,9 @@ class Me
      * por buenas practicas
      * @return void
      */
-    public function init_sesion()
+    private function init_sesion()
     {
-        if (!session_start()) {
+        if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
         return;
@@ -101,16 +99,14 @@ class Me
     {
         require_once(CLASSES . 'Db.php');
         require_once(CLASSES . 'Model.php');
+        require_once(CLASSES . 'View.php');
         require_once(CLASSES . 'Controller.php');
 
         // controlador por default
         require_once(CONTROLLERS . DEFAULT_CONTROLLER . 'Controller.php');
         require_once(CONTROLLERS . DEFAULT_ERROR_CONTROLLER . 'Controller.php');
-        require_once(CONTROLLERS . 'UserController.php');
         return;
     }
-
-
 
     /**
      * Filtrar y descomponer los elementos de nuestra URL y URI
@@ -143,6 +139,8 @@ class Me
      */
     private function dispatch()
     {
+        $current_controller = '';
+        $current_method = '';
         // filtrar la url y separar la uri
         $this->filter_url();
 
@@ -152,18 +150,20 @@ class Me
         // print_r($this->uri);
         if (isset($this->uri[0])) {
             // definimos el nombre de controlador
-            $this->current_controller = ucfirst($this->uri[0]) . 'Controller'; // UserController
+            define('CONTROLLER', $this->uri[0]);
+            $current_controller = ucfirst(CONTROLLER) . 'Controller'; // UserController
             unset($this->uri[0]); // destroy array [0]          
         } else {
-            $this->current_controller = ucfirst(DEFAULT_CONTROLLER) . 'Controller';// HomeController
+            define('CONTROLLER', DEFAULT_CONTROLLER);
+            $current_controller = ucfirst(CONTROLLER) . 'Controller';// HomeController            
         }
 
         // verificamos que el controlador exista y la clase exista   
-        $controllerClass = $this->current_controller;
+        $controllerClass = $current_controller;
         if (!class_exists($controllerClass)) {
-            $this->current_controller = ucfirst(DEFAULT_ERROR_CONTROLLER) . 'Controller';// ErrorController
+            $current_controller = ucfirst(DEFAULT_ERROR_CONTROLLER) . 'Controller';// ErrorController
         }
-        // echo $this->current_controller;
+        // echo $current_controller;
 
         //--------------METODO------------------
         // Ejecutar El Método solicitado
@@ -172,35 +172,49 @@ class Me
             // limpiar el método
             $method = str_replace('-', '_', $this->uri[1]);
             // si existe el método
-            if (!method_exists($this->current_controller, $method)) {
-                $this->current_controller = ucfirst(DEFAULT_ERROR_CONTROLLER) . 'Controller';// ErrorController
-                $this->current_method = DEFAULT_METHOD; // index
+            if (!method_exists($current_controller, $method)) {
+                $current_controller = ucfirst(DEFAULT_ERROR_CONTROLLER) . 'Controller';// ErrorController
+                $current_method = DEFAULT_METHOD; // index
             } else {
-                $this->current_method = $method; // index
+                $current_method = $method; // index
             }
             unset($this->uri[1]); // destroy Array[1]
         } else {
-            $this->current_method = DEFAULT_METHOD; // index
+            $current_method = DEFAULT_METHOD; // index
         }
         // imprimir el controlador y metodo actual
-        // echo $this->current_controller . '<br>';
-        // echo $this->current_method . '<br>';
+        // echo $current_controller . '<br>';
+        // echo $current_method . '<br>';
+
+        //--------------GUARDAR CONSTANTES------------------
+        // define('CONTROLLER', $current_controller);
+        define('METHOD', $current_method);
 
         //--------------EJECUTAR------------------
         // Ejecutar el controlador y el metodo según sea haga petición
-        $miController = new $this->current_controller; // Creamos el Objeto
+        $miController = new $current_controller; // Creamos el Objeto
         //print_r($miController);
         $params = array_values(empty($this->uri) ? [] : $this->uri); // sacar los parametros del metodo
         // print_r($params);
         // print_r($this->uri);
-
         if (empty($params)) {
-            call_user_func([$miController, $this->current_method]);
+            call_user_func([$miController, $current_method]);
         } else {
-            call_user_func_array([$miController, $this->current_method], $params);
+            call_user_func_array([$miController, $current_method], $params);
         }
         return;
     }
+
+    /**
+     * Crear una nueva instancia de la misma clase dentro de un método estático.
+     * @return void
+     */
+    public static function fly()
+    {
+        $me = new self;
+        return;
+    }
+
 
 }
 ?>

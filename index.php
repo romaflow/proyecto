@@ -5,7 +5,10 @@
  * 
  */
 require_once('app/classes/Me.php');
-$me = new Me();
+// $me = new Me();
+// trabajaremos metodo estatico
+Me::fly();
+
 
 
 ?>
